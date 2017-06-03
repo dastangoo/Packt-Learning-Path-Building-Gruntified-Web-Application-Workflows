@@ -1,6 +1,7 @@
 var fs = require('fs');
 module.exports = function (grunt) {
   'use strict';
+  require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
       jshint: {
@@ -8,6 +9,7 @@ module.exports = function (grunt) {
           src: ['js/**/*.js']
         }
       },
+      clean: ['dis/**/*'],
       coffee: {
         dist: {
           files: {
@@ -48,6 +50,45 @@ module.exports = function (grunt) {
         options: {
           sourceMap: true
         }
+      },
+      htmlbuild: {
+        dist: {
+          src: 'index.html',
+          dest: 'dist/index.html',
+          options: {
+            prefix: 'dist/',
+            relative: true,
+            scripts: {
+              package: 'dist/js/package.min.js'
+            },
+            styles: {
+              css: 'dist/css/styles.min.css'
+            }
+          }
+        },
+        dev: {
+          src: 'index.html',
+          dest: 'dist/index.html',
+          options: {
+            prefix: 'dist/',
+            relative: true,
+            scripts: {
+              package: 'dist/js/package.js'
+            },
+            styles: {
+              css: 'dist/css/styles.css'
+            }
+          }
+        }
+      },
+      connect: {
+        server: {
+          options: {
+            base: './dist/',
+            keepalive: true,
+            open: true
+          }
+        }
       }
   });
 
@@ -56,6 +97,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.registerTask('default', ['jshint', 'coffee', 'sass', 'uglify', 'cssmin']);
+  grunt.registerTask('default', ['jshint', 'clean', 'coffee', 'sass', 'uglify', 'cssmin', 'htmlbuild:dist', 'connect']);
 
 }

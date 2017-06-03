@@ -18,10 +18,14 @@
   "homepage": "https://github.com/dastangoo/Packt-Learning-Path-Building-Gruntified-Web-Application-Workflows#readme",
   "devDependencies": {
     "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-coffee": "^1.0.0",
+    "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-cssmin": "^2.2.0",
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-uglify": "^3.0.1",
-    "grunt-sass": "^2.0.0"
+    "grunt-html-build": "^0.7.1",
+    "grunt-sass": "^2.0.0",
+    "load-grunt-tasks": "^3.5.2"
   }
 }
