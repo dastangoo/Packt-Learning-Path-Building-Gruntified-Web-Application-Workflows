@@ -1,0 +1,22 @@
+{
+  "name": "example-grunt-project",
+  "version": "1.0.0",
+  "description": "An example grunt project",
+  "main": "gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dastangoo/Packt-Learning-Path-Building-Gruntified-Web-Application-Workflows.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dastangoo/Packt-Learning-Path-Building-Gruntified-Web-Application-Workflows/issues"
+  },
+  "homepage": "https://github.com/dastangoo/Packt-Learning-Path-Building-Gruntified-Web-Application-Workflows#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1"
+  }
+}
