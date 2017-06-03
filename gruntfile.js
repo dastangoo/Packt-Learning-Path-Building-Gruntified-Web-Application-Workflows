@@ -3,10 +3,15 @@ module.exports = function (grunt) {
   'use strict';
 
   grunt.initConfig({
+    prop: 'some property',
+    pkg: grunt.file.readJSON('package.json'),
     running: {
       taskOwner: 'Hamed',
       src: 'js/somefile.js',
-      dest: 'somefile.js'
+      dest: 'somefile.js',
+      options: {
+        comment: '/* <%= pkg.author %> */'
+      }
     },
     multi: {
       config1: {
@@ -27,12 +32,14 @@ module.exports = function (grunt) {
     }
   });
   grunt.registerTask('running', 'An example task', function (arg1) {
-    var done = this.async();
+    var done = this.async(),
+        comment = this.options().comment;
+    console.log(comment);
     grunt.config.requires('running.taskOwner');
     grunt.log.writeln('grunt working....' + this.name, grunt.config.get('running.taskOwner'));
     grunt.log.writeln(grunt.config.get('running.src'));
     fs.readFile(grunt.config.get('running.src'), function (error, data) {
-      fs.writeFile(grunt.config.get('running.dest'), data);
+      fs.writeFile(grunt.config.get('running.dest'), comment + '\n' + data);
       done();
     });
   });
