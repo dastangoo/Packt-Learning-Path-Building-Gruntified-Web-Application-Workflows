@@ -1,16 +1,28 @@
+var fs = require('fs');
 module.exports = function (grunt) {
   'use strict';
 
   grunt.initConfig({
     running: {
-      taskOwner: 'Hamed'
+      taskOwner: 'Hamed',
+      src: 'js/somefile.js',
+      dest: 'somefile.js'
     },
     multi: {
       config1: {
-        message: 'This is config1'
+        message: 'This is config1',
+        files: {
+          'someotherfile.js': 'js/somefile.js'
+        }
       },
       config2: {
-        message: 'This is config2'
+        message: 'This is config2',
+        files: [
+          {
+            src: 'js/somefile.js',
+            dest: 'someotherfile.js'
+          }
+        ]
       }
     }
   });
@@ -18,10 +30,18 @@ module.exports = function (grunt) {
     var done = this.async();
     grunt.config.requires('running.taskOwner');
     grunt.log.writeln('grunt working....' + this.name, grunt.config.get('running.taskOwner'));
-    done();
+    grunt.log.writeln(grunt.config.get('running.src'));
+    fs.readFile(grunt.config.get('running.src'), function (error, data) {
+      fs.writeFile(grunt.config.get('running.dest'), data);
+      done();
+    });
   });
   grunt.registerMultiTask('multi', 'An example multi task', function (){
     grunt.log.writeln(this.data.message);
+
+    this.files.forEach(function (file) {
+      grunt.log.writeln(file.src[0] + ' ' + file.dest);
+    });
   });
   grunt.registerTask('run', 'Run all the tasks', ['running']);
 }
