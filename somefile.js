@@ -1,2 +1,0 @@
-/* Hamed */
-// some file

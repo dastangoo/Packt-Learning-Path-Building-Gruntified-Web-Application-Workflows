@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/dastangoo/Packt-Learning-Path-Building-Gruntified-Web-Application-Workflows#readme",
   "devDependencies": {
-    "grunt": "^1.0.1"
+    "grunt": "^1.0.1",
+    "grunt-contrib-jshint": "^1.1.0"
   }
 }
