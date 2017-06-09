@@ -17,7 +17,8 @@ define(function () {
 
       expect(console.log).toHaveBeenCalledWith(testString);
 
-      
+
     });
+    
   });
 });
