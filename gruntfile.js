@@ -41,6 +41,16 @@ module.exports = function (grunt) {
           sourceManIn: 'dist/js/package.js.map'
         }
       },
+      requirejs: {
+        dist: {
+          options: {
+            baseUrl: 'js',
+            out: 'dist/js/app.js',
+            include: 'main',
+            name: 'vendor/almond'
+          }
+        }
+      },
       cssmin: {
         dist: {
           files: {
@@ -51,6 +61,20 @@ module.exports = function (grunt) {
           sourceMap: true
         }
       },
+      copy: {
+        dev: {
+          files: [
+            {
+              src: 'node_modules/grunt-contrib-requirejs/node_modules/requirejs/requirejs',
+              dest: 'dist/js/vendor/require.js'
+            }, {
+              expand: true,
+              src: ['js/**'],
+              dest: 'dist'
+            }
+          ]
+        }
+      },
       htmlbuild: {
         dist: {
           src: 'index.html',
@@ -59,7 +83,7 @@ module.exports = function (grunt) {
             prefix: 'dist/',
             relative: true,
             scripts: {
-              package: 'dist/js/package.min.js'
+              package: ['dist/js/package.min.js', 'dist/js/app.js']
             },
             styles: {
               css: 'dist/css/styles.min.css'
@@ -92,11 +116,6 @@ module.exports = function (grunt) {
       }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-coffee');
-  grunt.loadNpmTasks('grunt-sass');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.registerTask('default', ['jshint', 'clean', 'coffee', 'sass', 'uglify', 'cssmin', 'htmlbuild:dist', 'connect']);
+  grunt.registerTask('default', ['jshint', 'clean', 'coffee', 'sass', 'uglify', 'requirejs', 'cssmin', 'copy', 'htmlbuild:dev', 'connect']);
 
 }
