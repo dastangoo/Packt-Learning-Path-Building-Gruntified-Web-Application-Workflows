@@ -125,6 +125,13 @@ module.exports = function (grunt) {
             all: true
           }
         }
+      },
+      gitcommit: {
+        dist: {
+          options: {
+            message: grunt.option('commit-message')
+          }
+        }
       }
   });
 
@@ -132,6 +139,7 @@ module.exports = function (grunt) {
   grunt.registerTask('pre-build', ['jshint', 'karma', 'clean', 'coffee', 'sass']);
   grunt.registerTask('compress', ['uglify', 're quirejs','cssmin']);
   grunt.registerTask('build:deve', ['pre-build', 'compress', 'copy', 'htmlbuild:dev', 'connect']);
-  grunt.registerTask('build:dist', ['pre-build', 'compress', 'htmlbuild:dist', 'connect']);
+  grunt.registerTask('build:dist', ['pre-build', 'compress', 'htmlbuild:dist', 'gitadd', 'gitcommit',
+  'connect']);
 
 }
