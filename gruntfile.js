@@ -132,14 +132,37 @@ module.exports = function (grunt) {
             message: grunt.option('commit-message')
           }
         }
+      },
+      gitcheckout: {
+        dist: {
+          bransh: 'master'
+        }
+      },
+      gitrebase: {
+        dist: {
+          options: {
+            branch: ''
+          }
+        }
       }
   });
 
+  grunt.registerTask('get-branch', function () {
+    var done = this.async();
+
+    grunt.util.spawn({
+      cmd: 'git',
+      args: ['symbolic-ref', 'HEAD', '--short']
+    }, function (error, result) {
+      grunt.config.set('gitrebase.dist.options.branch', result.stdout);
+      done();
+    });
+  });
   grunt.registerTask('default', ['jshint', 'clean', 'coffee', 'sass', 'uglify', 'requirejs', 'cssmin', 'copy', 'htmlbuild:dev', 'connect']);
   grunt.registerTask('pre-build', ['jshint', 'karma', 'clean', 'coffee', 'sass']);
   grunt.registerTask('compress', ['uglify', 're quirejs','cssmin']);
   grunt.registerTask('build:deve', ['pre-build', 'compress', 'copy', 'htmlbuild:dev', 'connect']);
-  grunt.registerTask('build:dist', ['pre-build', 'compress', 'htmlbuild:dist', 'gitadd', 'gitcommit',
-  'connect']);
+  grunt.registerTask('build:dist', ['pre-build', 'compress', 'htmlbuild:dist', 'git', 'connect']);
+  grunt.registerTask('git', ['gitadd', 'gitcommit', 'git-branch', 'gitcheckout'])
 
 }
