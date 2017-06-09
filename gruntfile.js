@@ -4,22 +4,6 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
-      jshint: {
-        files: {
-          src: ['js/**/*.js', 'test/**/*.js']
-        }
-      },
-      clean: ['dis/**/*'],
-      coffee: {
-        dist: {
-          files: {
-            'dist/js/package.js': 'coffee/**/*.coffee'
-          }
-        },
-        options: {
-          sourceMap: true
-        }
-      },
       sass: {
         dist: {
           files: {
@@ -166,6 +150,9 @@ module.exports = function (grunt) {
       done();
     });
   });
+
+  grunt.registerTask('grunt');
+
   grunt.registerTask('default', ['jshint', 'clean', 'coffee', 'sass', 'uglify', 'requirejs', 'cssmin', 'copy', 'htmlbuild:dev', 'connect']);
   grunt.registerTask('pre-build', ['jshint', 'karma', 'clean', 'coffee', 'sass']);
   grunt.registerTask('compress', ['uglify', 're quirejs','cssmin']);
