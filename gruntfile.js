@@ -144,6 +144,14 @@ module.exports = function (grunt) {
             branch: ''
           }
         }
+      },
+      get_branchname: {
+        dist: {
+          options: {
+            target: 'gitrebase.dist.options.branch',
+            quiet: true
+          }
+        }
       }
   });
 
