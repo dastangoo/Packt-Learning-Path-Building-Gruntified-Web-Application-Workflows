@@ -138,20 +138,22 @@ module.exports = function (grunt) {
         }
       }
   });
-
+  
   grunt.registerTask('get-branch', function () {
     var done = this.async();
-
     grunt.util.spawn({
       cmd: 'git',
       args: ['symbolic-ref', 'HEAD', '--short']
-    }, function (error, result) {
-      grunt.config.set('gitrebase.dist.options.branch', result.stdout);
+    }, function (error, result){
+      console.log(result.stdout);
       done();
     });
   });
 
-  grunt.registerTask('grunt');
+
+  grunt.registerTask('jshint', ['jshint']);
+
+  grunt.loadTasks('grunt');
 
   grunt.registerTask('default', ['jshint', 'clean', 'coffee', 'sass', 'uglify', 'requirejs', 'cssmin', 'copy', 'htmlbuild:dev', 'connect']);
   grunt.registerTask('pre-build', ['jshint', 'karma', 'clean', 'coffee', 'sass']);
